@@ -129,6 +129,21 @@ $(document).ready(function () {
 <div id="question-01-10-points" class="section level4">
 <h4><strong>Question 01 (10 points)</strong></h4>
 <p>Create the X matrix and print it from SAS, R, and Python.</p>
+<pre><code>    [4 5 12]
+X = [1 0 35]
+    [2 1 82]</code></pre>
+<pre class="r"><code>x1 &lt;- c(4, 5, 12)
+x2 &lt;- c(1, 0 , 35)
+x3 &lt;- c(3, 1, 82)
+
+df_X &lt;- rbind.data.frame(x1, x2, x3)
+names(df_X) &lt;- c(&quot;c1&quot;, &quot;c2&quot;, &quot;c3&quot;)
+
+df_X</code></pre>
+<pre><code>##   c1 c2 c3
+## 1  4  5 12
+## 2  1  0 35
+## 3  3  1 82</code></pre>
 <hr />
 </div>
 <div id="question-02" class="section level4">
@@ -144,8 +159,7 @@ Variable description<br />
 * age : a numeric vector giving the age of the tree (days since 1968/12/31)<br />
 * circumference : a numeric vector of trunk circumferences (mm). This is probably “circumference at breast height”, a standard measurement in forestry.</p>
 <p>Submit your final R code and necessary plots for each part.</p>
-<pre class="r"><code>library(ggplot2)
-data (Orange)
+<pre class="r"><code>data (Orange)
 
 # ...   -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 # ...   a) Calculate the mean and the median of the trunk circumferences
@@ -211,6 +225,10 @@ aggregate(df_orange_tmp[, 2], list(df_orange_tmp$Tree), mean)</code></pre>
 <li><p>Download “CityTemp” data set (check your SMU email). Find the difference between the maximum and the minimum temperatures for each major city and report/visualize top 20 cities with maximum differences for the period since 1900.</p></li>
 <li><p>Compare the two graphs in (i) and (iii) and comment it. You can use either R or Python</p></li>
 </ol>
+<pre class="r"><code>setwd(data_dir)
+temps &lt;- read.csv (file = &quot;TEMP.csv&quot;, stringsAsFactors = FALSE)
+city_temp &lt;- read.csv (file = &quot;CityTemp.csv&quot;, stringsAsFactors = FALSE)
+setwd(home_dir)</code></pre>
 <hr />
 <div id="question-05-10-points" class="section level5">
 <h5><strong>… Question 05 (10 points)</strong></h5>

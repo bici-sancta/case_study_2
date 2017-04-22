@@ -26,9 +26,9 @@ setwd(home_dir)
 
 Create the X matrix and print it from SAS, R, and Python.
 
-	[4 5 12]
-X = [1 0 35]
-	[2 1 82]
+		[4 5 12]
+	X = [1 0 35]
+		[2 1 82]
 
 ```{r}
 
@@ -37,6 +37,7 @@ x2 <- c(1, 0 , 35)
 x3 <- c(3, 1, 82)
 
 df_X <- rbind.data.frame(x1, x2, x3)
+names(df_X) <- c("c1", "c2", "c3")
 
 df_X
 
