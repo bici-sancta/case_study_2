@@ -128,6 +128,10 @@ getVol <- function(d, logrets)
 	volest  <- getVol(10, SNPret)
 	volest2 <- getVol(30, SNPret)
 	volest3 <- getVol(100, SNPret)
+	
+	plot(SNPdata)
+	plot(log(SNPdata))
+	plot(SNPret)
 
 	plot(volest, type = "l")
 	lines(volest2, type = "l", col = "red")
