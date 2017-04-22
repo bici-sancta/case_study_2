@@ -22,7 +22,7 @@ setwd(home_dir)
 
 
 ***  
-#### __Question 01 (10 points)__  
+### __Question 01__  
 
 Create the X matrix and print it from SAS, R, and Python.
 
@@ -32,37 +32,112 @@ Create the X matrix and print it from SAS, R, and Python.
 
 ```{r}
 
-x1 <- c(4, 5, 12)
-x2 <- c(1, 0 , 35)
-x3 <- c(3, 1, 82)
+# ...	-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+# ...	in R, 1st as a data frame and 2nd as a matrix
+# ...	-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-df_X <- rbind.data.frame(x1, x2, x3)
-names(df_X) <- c("c1", "c2", "c3")
+	x1 <- c(4, 5, 12)
+	x2 <- c(1, 0 , 35)
+	x3 <- c(3, 1, 82)
+	df_X <- rbind.data.frame(x1, x2, x3)
+	names(df_X) <- c("c1", "c2", "c3")
+	df_X
 
-df_X
+	A = matrix( 
+		c(4, 5, 12, 1, 0, 35, 3, 1, 82), # the data elements 
+		nrow = 3,              # number of rows 
+		ncol = 3,              # number of columns 
+		byrow = TRUE)        # fill matrix by rows 
+	A
 
+# ...	-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+# ...	Need SAS code and image here
+# ...	-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+	
+	
+# ...	-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+# ...	Need python code and output here
+# ...	-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+	
+	
+	
+	
 ```
 
 
 
 
 ***  
-#### __Question 02__  
+### __Question 02__  
 Please watch videos1 and 2 in week 11 lecture assignment. You can download the code which
-used for S&P from files tab.
-Please do the following with your assigned stock.
- Download the data.
- Calculate log returns.
- Calculate volatility measure.
- Calculate volatility over entire length of series for various three different decay factors.
+used for S&P from files tab.  
+Please do the following with your assigned stock.  
+ Download the data.  
+ Calculate log returns.  
+ Calculate volatility measure.  
+ Calculate volatility over entire length of series for various three different decay factors.  
  Plot the results, overlaying the volatility curves on the data, just as was done in the S&P
-example.
-Group
-Stock
-Patrick and Sunna GWPH
+example.  
+
+ Group           | Stock 
+---------------- | ------------- 
+Patrick & Sunna  | GWPH        
+
+```{r}
+
+# ...	-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+# ...	-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+library(tseries)
+
+# ...	-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+# ..	 volatility function
+# ...	-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+getVol <- function(d, logrets)
+{
+	var = 0
+	lam = 0
+	varlist <- c()
+
+	for (r in logrets)
+	{
+		lam = lam*(1 - 1/d) + 1
+		var = (1 - 1/lam)*var + (1/lam)*r^2
+		varlist <- c(varlist, var)
+	}
+	sqrt(varlist)
+}
+
+
+# ...	-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+# ...	
+# ...	-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+	SNPdata <- get.hist.quote('gwph',quote="Close")
+	SNPret <- log(lag(SNPdata)) - log(SNPdata)
+	SNPvol <- sd(SNPret) * sqrt(250) * 100
+
+
+
+# ...	-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+# ...	recreate figure 6.12 in the text on page 155
+# ...	-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+	volest  <- getVol(10, SNPret)
+	volest2 <- getVol(30, SNPret)
+	volest3 <- getVol(100, SNPret)
+
+	plot(volest, type = "l")
+	lines(volest2, type = "l", col = "red")
+	lines(volest3, type = "l", col = "blue")
+
+
+```
 
 ***  
-#### __Question 03 (20 points)__  
+### __Question 03__  
 
 The built-in data set called Orange in R is about the growth of orange trees. The Orange data
 frame has 3 columns of records of the growth of orange trees.  
@@ -118,7 +193,7 @@ aggregate(df_orange_tmp[, 2], list(df_orange_tmp$Tree), median)
 
 ***  
 
-#### __Question 04__  
+### __Question 04__  
 Download “Temp” data set (check your SMU email)  
 
 (i) Find the difference between the maximum and the minimum monthly average
@@ -148,16 +223,32 @@ You can use either R or Python
 
 ```{r}
 
-setwd(data_dir)
-temps <- read.csv (file = "TEMP.csv", stringsAsFactors = FALSE)
-city_temp <- read.csv (file = "CityTemp.csv", stringsAsFactors = FALSE)
-setwd(home_dir)
+# ...	-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+# ...		Question 4 needs to be complete
+# ...	-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
+# ...	-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+# ...		import data sets
+# ...	-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+	setwd(data_dir)
+	temps <- read.csv (file = "TEMP.csv", stringsAsFactors = FALSE)
+	city_temp <- read.csv (file = "CityTemp.csv", stringsAsFactors = FALSE)
+	setwd(home_dir)
+
+	
+# ...	-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+# ...		all the rest of q4 answers here ....
+# ...	-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+	
+	
+	
+	
 ```
 
 
 ***  
-##### __... Question 05 (10 points)__  
+### __... Question 05__  
 ##### ... Semester End Bonus  
 ##### ... Run the following code in R and paste the final graph.  
 
