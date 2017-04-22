@@ -38,6 +38,7 @@ Submit your final R code and necessary plots for each part.
 
 
 ```{r}
+library(ggplot2)
 data (Orange)
 
 plot(circumference ~ age, data = Orange,
@@ -46,11 +47,14 @@ plot(circumference ~ age, data = Orange,
      main = "Orange tree data and fitted model",
 	 col = Tree)
 
-Orange
 
+p <- ggplot(Orange, aes(age, circumference))
+p + geom_point(aes(color = factor(Tree)))
 
+Orange$tree <- as.numeric(Orange$Tree)
 
-
+p <- ggplot(Orange, aes(x = as.numeric(Tree), y = circumference))
+p + geom_boxplot(aes(color = factor(tree)))
 
 ```
 
