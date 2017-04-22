@@ -1,0 +1,86 @@
+---
+title: "case_study_2"
+author: "sunna quazi and patrick mcdevitt"
+date: "21 avril 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## __Case Study 2__  
+
+
+
+
+
+
+
+***  
+#### __Question 03 (20 points)__  
+
+The built-in data set called Orange in R is about the growth of orange trees. The Orange data
+frame has 3 columns of records of the growth of orange trees.  
+Variable description  
+* Tree : an ordered factor indicating the tree on which the measurement is made. The ordering
+is according to increasing maximum diameter.  
+* age : a numeric vector giving the age of the tree (days since 1968/12/31)  
+* circumference : a numeric vector of trunk circumferences (mm). This is probably
+“circumference at breast height”, a standard measurement in forestry.  
+	a) Calculate the mean and the median of the trunk circumferences for different size of the
+trees. (Tree)  
+	b) Make a scatter plot of the trunk circumferences against the age of the tree. Use different
+plotting symbols for different size of trees.  
+	c) Display the trunk circumferences on a comparative boxplot against tree. Be sure you order the boxplots in the increasing order of maximum diameter.  
+	
+Submit your final R code and necessary plots for each part.
+
+
+```{r}
+data (Orange)
+
+plot(circumference ~ age, data = Orange,
+     xlab = "Tree age (days since 1968/12/31)",
+     ylab = "Tree circumference (mm)", las = 1,
+     main = "Orange tree data and fitted model",
+	 col = Tree)
+
+Orange
+
+
+
+
+
+```
+
+
+
+
+
+***  
+##### __... Question 05 (10 points)__  
+##### ... Semester End Bonus  
+##### ... Run the following code in R and paste the final graph.  
+
+
+```{r q5, echo=FALSE}
+
+# ...	-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+# ...	-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+	t<-seq(0,10,length=1000)
+	x<-sqrt(t)*cos(2*pi*t)
+	y<-sqrt(t)*sin(2*pi*t)
+	
+	plot(x,y,axes=F,type="l",lwd=3,xlab="x(t)",ylab="y(t)",col="red")
+	axis(1,at=seq(-3,3,by=0.5),labels=seq(-3,3,by=0.5))
+	axis(2)
+	
+	box()
+	
+	title(main=expression(
+	paste("(x(t),y(t)) with polar coordinates",
+	(list(sqrt(t),2*pi*t))
+	)))
+```
