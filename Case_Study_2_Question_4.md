@@ -1,7 +1,7 @@
 # Case Study 2, Q4
 squazi and Patrick  
 April 25 2017  
-#Temp Data
+# Temp Data
 ## I
 
 ```r
@@ -42,9 +42,9 @@ head(temp)
 ```r
 #Observation- data is monthly temperatures for each country for 3 to 4 centuries
 ```
-###Find the difference between thde maximum and the minimum monthly average temperatures for each country and report/visualize top 20 countries with the maximum differences for the period since 1900.
+### Find the difference between thde maximum and the minimum monthly average temperatures for each country and report/visualize top 20 countries with the maximum differences for the period since 1900.
 
-####We need to get first get rid of all the pre-1900 values by subsetting
+#### We need to get first get rid of all the pre-1900 values by subsetting
 
 ```r
 #Observation: dates are in all sorts of different formats, but the dates that I want (the 1900+ dates) have "/" instead of "-"
@@ -71,7 +71,7 @@ head(tempSub)
 ## 746 Afghanistan 5/1/1900 1900-05-01
 ## 747 Afghanistan 6/1/1900 1900-06-01
 ```
-####Now we need to get the maximum and minimum monthly values for each country.
+#### Now we need to get the maximum and minimum monthly values for each country.
 
 ```r
 #Get rid of NA values, because they won't contribute to the min or max
@@ -91,7 +91,7 @@ x["Difference"] <- x$Max.-x$Min.
 #Sort the new difference variable in ascending order
 xSort <-arrange(x,desc(Difference))
 ```
-###Report the Top 20 countries with the largest range in monthly temperatures:
+### Report the Top 20 countries with the largest range in monthly temperatures:
 
 ```r
 xSort$Country <-xSort$'tempClean$Country'
@@ -121,7 +121,7 @@ Ifinal <-print(xSort[("1":"20"), c("Country", "Max.", "Min.", "Difference")])
 ## 19       Poland 22.510 -13.110     35.620
 ## 20      Armenia 25.290  -9.982     35.272
 ```
-###Visualize the Top 20 countries with the largest range in monthly temperatures:
+### Visualize the Top 20 countries with the largest range in monthly temperatures:
 
 ```r
 Ifinal$Country <-as.character(Ifinal$Country)
@@ -132,19 +132,19 @@ barplot(counts, main="Top 20 Countries with the Highest Temperature Difference",
 ```
 
 ![](Case_Study_2_Question_4_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
-##II
-###Select a subset of data called "UStemp" where US land temperatures from 01/01/1990 in Temp data. Use UStemp dataset to answer the followings.
+## II
+### Select a subset of data called "UStemp" where US land temperatures from 01/01/1990 in Temp data. Use UStemp dataset to answer the followings.
 
 ```r
 tempClean$Country <-as.character(tempClean$Country)
 UStemp <-subset(tempClean,subset = (Country == "United States"))
 ```
-###a) Create a new column to display the monthly average land temperatures in Fahrenheit (°F).
+### a) Create a new column to display the monthly average land temperatures in Fahrenheit (°F).
 
 ```r
 UStemp$Fahrenheit <- (UStemp$Monthly.AverageTemp*1.8)+32
 ```
-###b) Calculate average land temperature by year and plot it. The original file has the average land temperature by month.
+### b) Calculate average land temperature by year and plot it. The original file has the average land temperature by month.
 
 ```r
 #tidy up UStemp
@@ -154,7 +154,7 @@ UStemp <-subset(UStemp, select = -Date3)
 UStemp$Year<-format(UStemp$Date,'%Y')
 ii <-ddply(UStemp, c("Year"), function(x) mean(x$Fahrenheit))
 ```
-####Scatter Plot Method
+#### Scatter Plot Method
 
 ```r
 year = ii$Year       
@@ -165,7 +165,7 @@ plot(year, average, main ="Modern Yearly Average Temperature in the US",
 ```
 
 ![](Case_Study_2_Question_4_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
-####Boxplot
+#### Boxplot
 
 ```r
 UStemp$Y2 <-as.numeric(UStemp$Year)
@@ -174,7 +174,7 @@ boxplot(UStemp$Fahrenheit~UStemp$Decade, las = 2, xlab="Decade", main ="Average 
 ```
 
 ![](Case_Study_2_Question_4_files/figure-html/unnamed-chunk-10-1.png)<!-- -->
-###c) Calculate the one year difference of average land temperature by year and provide the maximum difference (value) with corresponding years.
+### c) Calculate the one year difference of average land temperature by year and provide the maximum difference (value) with corresponding years.
 
 ```r
 change <-diff(ii$V1)
@@ -187,7 +187,7 @@ summary(ii$Change)
 ##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
 ## -2.12800 -0.42800 -0.02003  0.03593  0.63410  2.54000
 ```
-##iii
+## iii
 ### Download "CityTemp" data set (check your SMU email). Find the difference between the maximum and the minimum temperatures for each major city and report/visualize top 20 cities with maximum differences for the period since 1900.
 
 ```r
@@ -251,7 +251,7 @@ barplot(counts2, main="Top 20 Cities with the Highest Temperature Difference",co
 ```
 
 ![](Case_Study_2_Question_4_files/figure-html/unnamed-chunk-12-1.png)<!-- -->
-###(iv) Compare the two graphs in (i) and (iii) and comment it.
+### (iv) Compare the two graphs in (i) and (iii) and comment it.
 
 ```r
 par (mfrow=c(1,2))
