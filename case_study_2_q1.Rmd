@@ -1,0 +1,66 @@
+---
+title: "case_study_2"
+author: "sunna quazi and patrick mcdevitt"
+date: "21 avril 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo = TRUE)
+
+library(ggplot2)
+
+home_dir <- "~/_smu/_src/case_study_2"
+
+data_dir <- paste0(home_dir, "/data")
+setwd(home_dir)
+
+```
+
+
+***  
+### __Question 01__  
+
+Create the X matrix and print it from SAS, R, and Python.
+
+		[4 5 1 2]
+	X = [1 0 3 5]
+		[2 1 8 2]
+
+```{r}
+
+# ...	-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+# ...	in R, 1st as a data frame and 2nd as a matrix
+# ...	-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+	x1 <- c(4, 5, 1, 2)
+	x2 <- c(1, 0, 3, 5)
+	x3 <- c(3, 1, 8, 2)
+	df_X <- rbind.data.frame(x1, x2, x3)
+	names(df_X) <- c("c1", "c2", "c3")
+	df_X
+
+	A = matrix( 
+		c(4, 5, 1, 2, 1, 0, 3, 5, 3, 1, 8, 2), # the data elements 
+		nrow = 3,              # number of rows 
+		ncol = 4,              # number of columns 
+		byrow = TRUE)        # fill matrix by rows 
+	A
+
+# ...	-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+# ...	Need SAS code and image here
+# ...	-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+
+	
+# ...	-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+# ...	Need python code and output here
+# ...	-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+	
+	
+	
+	
+```
+
+
+
