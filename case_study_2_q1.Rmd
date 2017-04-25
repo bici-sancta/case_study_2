@@ -2,7 +2,9 @@
 title: "case_study_2"
 author: "sunna quazi and patrick mcdevitt"
 date: "21 avril 2017"
-output: html_document
+output:
+  html_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -47,17 +49,6 @@ Create the X matrix and print it from SAS, R, and Python.
 		ncol = 4,              # number of columns 
 		byrow = TRUE)        # fill matrix by rows 
 	A
-
-# ...	-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-# ...	Need SAS code and image here
-# ...	-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-
-	
-# ...	-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-# ...	Need python code and output here
-# ...	-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-	
-	
 	
 	
 ```
