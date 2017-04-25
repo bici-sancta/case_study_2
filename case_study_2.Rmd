@@ -2,7 +2,7 @@
 title: "case_study_2"
 author: "sunna quazi and patrick mcdevitt"
 date: "21 avril 2017"
-output: md_document
+output: html_document
 ---
 
 ```{r setup, include=FALSE}
@@ -234,20 +234,133 @@ You can use either R or Python
 # ...	-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 	setwd(data_dir)
-	temps <- read.csv (file = "TEMP.csv", stringsAsFactors = FALSE)
-	city_temp <- read.csv (file = "CityTemp.csv", stringsAsFactors = FALSE)
+	temp <- read.csv (file = "TEMP.csv", stringsAsFactors = FALSE)
+	citytemp <- read.csv (file = "CityTemp.csv", stringsAsFactors = FALSE)
 	setwd(home_dir)
-
-	
-# ...	-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-# ...		all the rest of q4 answers here ....
-# ...	-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
-	
-	
-	
 	
 ```
+#Temp Data
+## I
+```{r}
+#load temp data
+#temp <- read.csv("C:/Users/esunqua/Documents/R/Case Study 2/TEMP.csv")
+str(temp)
+head(temp)
+#Observation- data is monthly temperatures for each country for 3 to 4 centuries
+```
+###Find the difference between thde maximum and the minimum monthly average temperatures for each country and report/visualize top 20 countries with the maximum differences for the period since 1900.
 
+####We need to get first get rid of all the pre-1900 values by subsetting
+```{r}
+#Observation: dates are in all sorts of different formats, but the dates that I want (the 1900+ dates) have "/" instead of "-"
+temp$Date2 <-as.character(temp$Date)
+substring="/"
+tempSub <-subset(temp, grepl(substring,temp$Date2))
+tempSub$Date3 <-as.Date(tempSub$Date, format = "%m/%d/%Y")
+head(tempSub)
+```
+####Now we need to get the maximum and minimum monthly values for each country.
+```{r}
+#Get rid of NA values, because they won't contribute to the min or max
+library(plyr)
+tempClean <-subset(x=tempSub,  !is.na(Monthly.AverageTemp))
+#Get the mins and max per country
+x <-ddply(tempClean, c("tempClean$Country"), function(x) summary(x$Monthly.AverageTemp))
+#Create a new variable that has teh difference between the max an min temperatures per country
+x["Difference"] <- x$Max.-x$Min.
+#Sort the new difference variable in ascending order
+xSort <-arrange(x,desc(Difference))
+```
+###Report the Top 20 countries with the largest range in monthly temperatures:
+```{r}
+xSort$Country <-xSort$'tempClean$Country'
+Ifinal <-print(xSort[("1":"20"), c("Country", "Max.", "Min.", "Difference")])
+```
+###Visualize the Top 20 countries with the largest range in monthly temperatures:
+```{r}
+Ifinal$Country <-as.character(Ifinal$Country)
+country <-Ifinal$Country
+Difference <-Ifinal$Difference
+counts <-table(rep(country, Difference))
+barplot(counts, main="Top 20 Countries with the Highest Temperature Difference",col = rainbow(20), ylim=c(0,50), ylab="Diff of Monthly Avg. Temps.", las=2)
+```
+##II
+###Select a subset of data called "UStemp" where US land temperatures from 01/01/1990 in Temp data. Use UStemp dataset to answer the followings.
+```{r}
+tempClean$Country <-as.character(tempClean$Country)
+UStemp <-subset(tempClean,subset = (Country == "United States"))
+```
+###a) Create a new column to display the monthly average land temperatures in Fahrenheit (?F).
+```{r}
+UStemp$Fahrenheit <- (UStemp$Monthly.AverageTemp*1.8)+32
+```
+###b) Calculate average land temperature by year and plot it. The original file has the average land temperature by month.
+```{r}
+#tidy up UStemp
+UStemp$Date <-UStemp$Date3
+UStemp <-subset(UStemp, select = -Date2)
+UStemp <-subset(UStemp, select = -Date3)
+UStemp$Year<-format(UStemp$Date,'%Y')
+ii <-ddply(UStemp, c("Year"), function(x) mean(x$Fahrenheit))
+```
+####Scatter Plot Method
+```{r}
+year = ii$Year       
+average = ii$V1         
+plot(year, average, main ="Modern Yearly Average Temperature in the US", 
+   xlab="Year",       
+   ylab="Average Yearly Temperature", pch = 20, col=rev(heat.colors(114)))
+```
+####Boxplot
+```{r}
+UStemp$Y2 <-as.numeric(UStemp$Year)
+UStemp$Decade <-(UStemp$Y2 - (UStemp$Y2 %% 10))
+boxplot(UStemp$Fahrenheit~UStemp$Decade, las = 2, xlab="Decade", main ="Average Temperature in the US", col=rev(heat.colors(12)))
+```
+###c) Calculate the one year difference of average land temperature by year and provide the maximum difference (value) with corresponding years.
+```{r}
+
+change <-diff(ii$V1)
+change <-c(0,change)
+ii$Change <-change
+summary(ii$Change)
+```
+##iii
+### Download "CityTemp" data set (check your SMU email). Find the difference between the maximum and the minimum temperatures for each major city and report/visualize top 20 cities with maximum differences for the period since 1900.  
+
+```{r}
+
+#citytemp <-read.csv("C:/Users/esunqua/Documents/R/Case Study 2/CityTemp.csv")
+str(citytemp)
+
+#Dates are factors again
+
+citytemp$D2 <-as.character(citytemp$Date)
+CitySub <-subset(citytemp, grepl(substring,citytemp$D2))
+CitySumm <-ddply(CitySub, c("CitySub$City"), function(x) summary(CitySub$Monthly.AverageTemp))
+CityClean <-subset(x=CitySub,  !is.na(Monthly.AverageTemp))
+CitySumm <-ddply(CityClean, c("CityClean$City"), function(x) summary(x$Monthly.AverageTemp))
+CitySumm$diff <-CitySumm$Max.-CitySumm$Min.
+CitySumm <-arrange(CitySumm,desc(diff))
+CitySumm$City <-CitySumm$`CityClean$City`
+iii <-print(CitySumm[("1":"20"), c("City", "Max.", "Min.", "diff")])
+cit <-as.character(iii$City)
+dif <-iii$diff
+counts2 <-table(rep(cit, dif))
+barplot(counts2, main="Top 20 Cities with the Highest Temperature Difference",col = rainbow(20), ylim=c(0,55), ylab="Diff of Monthly Avg. Temps.", las=2)
+
+```
+
+###(iv) Compare the two graphs in (i) and (iii) and comment it.  
+
+```{r}
+
+par (mfrow=c(1,2))
+barplot(counts, main="Countries",col = rainbow(20), ylim=c(0,60), ylab="Diff of Monthly Avg. Temps.", las=2)
+barplot(counts2, main="Cities",col = rainbow(20), ylim=c(0,60), ylab="Diff of Monthly Avg. Temps.", las=2)
+
+#this is an interesting comment
+```
 
 ***  
 ### __... Question 05__  
