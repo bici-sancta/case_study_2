@@ -24,11 +24,11 @@ setwd(home_dir)
 Please watch videos1 and 2 in week 11 lecture assignment. You can download the code which
 used for S&P from files tab.  
 Please do the following with your assigned stock.  
- Download the data.  
- Calculate log returns.  
- Calculate volatility measure.  
- Calculate volatility over entire length of series for various three different decay factors.  
- Plot the results, overlaying the volatility curves on the data, just as was done in the S&P
+- Download the data.  
+- Calculate log returns.  
+- Calculate volatility measure.  
+- Calculate volatility over entire length of series for various three different decay factors.  
+- Plot the results, overlaying the volatility curves on the data, just as was done in the S&P
 example.  
 
  Group           | Stock 
