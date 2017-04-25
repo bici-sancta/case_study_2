@@ -2,7 +2,7 @@
 title: "case_study_2"
 author: "sunna quazi and patrick mcdevitt"
 date: "21 avril 2017"
-output: html_document
+output: md_document
 ---
 
 ```{r setup, include=FALSE}
@@ -54,7 +54,6 @@ Create the X matrix and print it from SAS, R, and Python.
 # ...	Need SAS code and image here
 # ...	-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-	
 	
 # ...	-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 # ...	Need python code and output here
@@ -115,10 +114,9 @@ getVol <- function(d, logrets)
 # ...	
 # ...	-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
-	SNPdata <- get.hist.quote('gwph',quote="Close")
+	SNPdata <- get.hist.quote('gwph', quote = "Close")
 	SNPret <- log(lag(SNPdata)) - log(SNPdata)
 	SNPvol <- sd(SNPret) * sqrt(250) * 100
-
 
 
 # ...	-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
